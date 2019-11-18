@@ -4,15 +4,26 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-public class JdbcConnection {
+
+public class JdbcConnection{
 	
+	private JdbcConnection instance;
 	private static final String url = "jdbc:mysql://localhost:3306/examesdb?useTimezone=true&serverTimezone=UTC";
 	private static final String username = "root";
 	private static final String password = "Gabriel1996";
 	private static Connection con = null;
 	private static String driverName = "com.mysql.cj.jdbc.Driver";
 	
-	public static Connection connect() {
+	public JdbcConnection getInstanceJdbc() {
+		
+		if(instance==null) {
+			instance = new JdbcConnection();
+		}
+		
+		return instance;
+	}
+	
+	public Connection connect() {
 		
 		try {
 			Class.forName(driverName);
