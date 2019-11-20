@@ -2,22 +2,15 @@ package action;
 
 import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
-
-import org.apache.struts2.ServletActionContext;
-
 import com.opensymphony.xwork2.ActionSupport;
 
 import dao.ExamesDAO;
-import models.Exame;
 import models.ExameDto;
 
-//import com.opensymphony.xwork2.ActionSupport;
 
 public class ListaExameAction extends ActionSupport{
 
 	private ExamesDAO examesDAO;
-	private Exame exame;
 	private List<ExameDto> listaExames;
 	
 	public ListaExameAction(ExamesDAO examesDAO) {

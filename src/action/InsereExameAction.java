@@ -8,7 +8,6 @@ import javax.servlet.http.HttpServletRequest;
 import org.apache.struts2.ServletActionContext;
 
 import com.opensymphony.xwork2.ActionSupport;
-import com.opensymphony.xwork2.ModelDriven;
 
 import dao.ExamesDAO;
 import dao.MedicoDAO;
@@ -25,7 +24,6 @@ public class InsereExameAction extends ActionSupport{
 	private List<Medico> listaMedicos;
 	private List<Paciente> listaPacientes;
 	private Exame exame;
-	private String nomeM, nomeP;
 	
 	public InsereExameAction(ExamesDAO examesDAO, MedicoDAO medicosDAO, PacienteDAO pacientesDAO) {
 		this.examesDAO = examesDAO;

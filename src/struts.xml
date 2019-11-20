@@ -32,5 +32,5 @@
 		</action>
 	</package>
 	
-
+	<constant name="struts.action.excludePattern" value="/services/.*?" />
 </struts>
