@@ -9,6 +9,7 @@ import java.util.List;
 
 import connection.JdbcConnection;
 import models.Exame;
+import models.ExameDto;
 
 public class ExamesDAO {
 	
@@ -70,7 +71,7 @@ public class ExamesDAO {
 	public void updateExame(Exame exame) {
 		
 		String sql = "update exame set id_Medico=?, id_Paciente=?, dt_Exame=?, tp_Sanguineo=?, reumatismo=?, doenca_cardiaca=?, pressao_alta=?," + 
-				"+ diabetes=?, doenca_mental=?, epilepsia=?, hernia=?, cancer=?, alergias=?, outras_doencas=?, medicamentos=?, doencas_familiares=? where id_Exame=?";
+				" diabetes=?, doenca_mental=?, epilepsia=?, hernia=?, cancer=?, alergias=?, outras_doencas=?, medicamentos=?, doencas_familiares=? where id_Exame=?";
 		
 		conexao = jdbcConnection.connect();
 		
@@ -94,7 +95,7 @@ public class ExamesDAO {
 			ps.setString(14, exame.getOutras_doencas());
 			ps.setString(15, exame.getMedicamentos());
 			ps.setString(16, exame.getDoencas_familiares());
-			ps.setLong(16, exame.getId());
+			ps.setLong(17, exame.getId());
 			ps.execute();
 			
 		} catch (SQLException e) {
@@ -114,11 +115,12 @@ public class ExamesDAO {
 		}
 	}
 	
-	public List<Exame> getAll(){
+	public List<ExameDto> getAll(){
 		
-		ArrayList<Exame> exames = null;
-		Exame exame;
-		String sql = "select * from exames";
+		List<ExameDto> examesDto = null;
+		ExameDto exame;
+		String sql = "select e.id_Exame, e.dt_Exame, paciente.nm_Paciente, medico.nm_medico from Exame e, (select p.id_paciente, p.nm_paciente from paciente p) as paciente, (select m.id_medico, m.nm_medico from medico m) as medico "
+				+ "where e.id_paciente = paciente.id_paciente and e.id_medico = medico.id_medico;";
 		
 		conexao = jdbcConnection.connect();
 		
@@ -129,29 +131,18 @@ public class ExamesDAO {
 			ps = conexao.prepareStatement(sql);
 			rs = ps.executeQuery();
 			
-			exames = new ArrayList<Exame>();
-			exame = new Exame();
+			examesDto = new ArrayList<ExameDto>();
 			
 			while(rs.next()) {
-				exame.setId(rs.getLong("id_Exame"));
-				exame.setId_Medico(rs.getLong("id_Medico"));
-				exame.setId_Paciente(rs.getLong("id_Paciente"));
-				exame.setDt_Exame(rs.getString("dt_Exame"));
-				exame.setTp_Sanguineo(rs.getString("tp_Sanguineo"));
-				exame.setReumatismo(rs.getBoolean("reumatismo"));
-				exame.setDoenca_cardiaca(rs.getBoolean("doenca_cardiaca"));
-				exame.setPressao_alta(rs.getBoolean("pressao_alta"));
-				exame.setDiabetes(rs.getBoolean("diabetes"));
-				exame.setDoenca_mental(rs.getBoolean("doenca_mental"));
-				exame.setEpilepsia(rs.getBoolean("epilepsia"));
-				exame.setHernia(rs.getBoolean("hernia"));
-				exame.setCancer(rs.getString("cancer"));
-				exame.setAlergias(rs.getString("alergias"));
-				exame.setOutras_doencas(rs.getString("outras_doencas"));
-				exame.setMedicamentos(rs.getString("medicamentos"));
-				exame.setDoencas_familiares(rs.getString("doencas_familiares"));
 				
-				exames.add(exame);
+				exame = new ExameDto();
+				
+				exame.setId_Exame(rs.getLong("id_Exame"));
+				exame.setDt_Exame(rs.getString("dt_Exame"));
+				exame.setNm_Medico(rs.getString("nm_Medico"));
+				exame.setNm_Paciente(rs.getString("nm_Paciente"));
+				
+				examesDto.add(exame);
 			}
 		} catch (SQLException e) {
 			System.out.println("Não foi possível completar essa consulta!");
@@ -174,7 +165,7 @@ public class ExamesDAO {
 			}
 		}
 		
-		return exames; 
+		return examesDto; 
 	}
 	
 	public Exame getExame(Long id) {
@@ -193,24 +184,26 @@ public class ExamesDAO {
 			
 			rs = ps.executeQuery();
 			
-			exame = new Exame();
-			exame.setId(rs.getLong("id_Exame"));
-			exame.setId_Medico(rs.getLong("id_Medico"));
-			exame.setId_Paciente(rs.getLong("id_Paciente"));
-			exame.setDt_Exame(rs.getString("dt_Exame"));
-			exame.setTp_Sanguineo(rs.getString("tp_Sanguineo"));
-			exame.setReumatismo(rs.getBoolean("reumatismo"));
-			exame.setDoenca_cardiaca(rs.getBoolean("doenca_cardiaca"));
-			exame.setPressao_alta(rs.getBoolean("pressao_alta"));
-			exame.setDiabetes(rs.getBoolean("diabetes"));
-			exame.setDoenca_mental(rs.getBoolean("doenca_mental"));
-			exame.setEpilepsia(rs.getBoolean("epilepsia"));
-			exame.setHernia(rs.getBoolean("hernia"));
-			exame.setCancer(rs.getString("cancer"));
-			exame.setAlergias(rs.getString("alergias"));
-			exame.setOutras_doencas(rs.getString("outras_doencas"));
-			exame.setMedicamentos(rs.getString("medicamentos"));
-			exame.setDoencas_familiares(rs.getString("doencas_familiares"));
+			while(rs.next()) {
+				exame = new Exame();
+				exame.setId(rs.getLong("id_Exame"));
+				exame.setId_Medico(rs.getLong("id_Medico"));
+				exame.setId_Paciente(rs.getLong("id_Paciente"));
+				exame.setDt_Exame(rs.getString("dt_Exame"));
+				exame.setTp_Sanguineo(rs.getString("tp_Sanguineo"));
+				exame.setReumatismo(rs.getBoolean("reumatismo"));
+				exame.setDoenca_cardiaca(rs.getBoolean("doenca_cardiaca"));
+				exame.setPressao_alta(rs.getBoolean("pressao_alta"));
+				exame.setDiabetes(rs.getBoolean("diabetes"));
+				exame.setDoenca_mental(rs.getBoolean("doenca_mental"));
+				exame.setEpilepsia(rs.getBoolean("epilepsia"));
+				exame.setHernia(rs.getBoolean("hernia"));
+				exame.setCancer(rs.getString("cancer"));
+				exame.setAlergias(rs.getString("alergias"));
+				exame.setOutras_doencas(rs.getString("outras_doencas"));
+				exame.setMedicamentos(rs.getString("medicamentos"));
+				exame.setDoencas_familiares(rs.getString("doencas_familiares"));
+			}
 
 		} catch (SQLException e) {
 			System.out.println("Não possível realizar a consulta!");
@@ -238,7 +231,7 @@ public class ExamesDAO {
 	
 	public void deleteExame(Long id) {
 		
-		String sql = "delete from exame where ?";
+		String sql = "delete from exame where id_exame = ?";
 		PreparedStatement ps = null;
 		
 		conexao = jdbcConnection.connect();

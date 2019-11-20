@@ -6,5 +6,13 @@
     <bean id="examesDAO" class="dao.ExamesDAO">
     	<constructor-arg ref="getInstanceJdbc"></constructor-arg>
     </bean>
+    
+    <bean id="medicoDAO" class="dao.MedicoDAO">
+    	<constructor-arg ref="getInstanceJdbc"></constructor-arg>
+    </bean>
+    
+    <bean id="pacienteDAO" class="dao.PacienteDAO">
+    	<constructor-arg ref="getInstanceJdbc"></constructor-arg>
+    </bean>
 </beans>
  

@@ -1,16 +1,13 @@
-<%@page import="connection.JdbcConnection"%>
-<%@page import="dao.ExamesDAO" %>
-<%@page import="models.Exame" %>
-<%@ page import="java.util.*" %>
+<%@ taglib prefix="s" uri="/struts-tags" %>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Index</title>
+<title>Home</title>
 </head>
 <body>
-<h1>Hello World!</h1>
+<a href="exames">Consultar Exames</a>
 </body>
 </html>

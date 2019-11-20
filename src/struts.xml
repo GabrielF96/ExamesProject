@@ -10,6 +10,26 @@
 		<action name="index">
 			<result>/index.jsp</result>
 		</action>
+		
+		<action name="exames" class="action.ListaExameAction" method="execute">
+			<result name="success">/listExames.jsp</result>
+		</action>
+		
+		<action name="editarExame" class="action.InsereExameAction" method="editarExame">
+			<result name="success">/formUpdateExame.jsp</result>
+		</action>
+		
+		<action name="formExame" class="action.InsereExameAction" method="execute">
+			<result name="success">/formExame.jsp</result>
+		</action>
+		
+		<action name="inserirExame" class="action.InsereExameAction" method="insereExame">
+			<result name="success">/listExames.jsp</result>
+		</action>
+		
+		<action name="removerExame" class="action.RemoverExameAction" method="execute">
+			<result name="success">/listExames.jsp</result>
+		</action>
 	</package>
 	
 
