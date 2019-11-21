@@ -30,6 +30,10 @@
 		<action name="removerExame" class="action.RemoverExameAction" method="execute">
 			<result name="success">/listExames.jsp</result>
 		</action>
+		
+		<action name="consultarExame" class="action.ConsultaExameAction" method="execute">
+			<result name="success">/perfilExame.jsp</result>
+		</action>
 	</package>
 	
 	<constant name="struts.action.excludePattern" value="/services/.*?" />

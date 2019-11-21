@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?><!-- Use this file to deploy some handlers/chains and services      --><!-- Two ways to do this:                                           --><!--   java org.apache.axis.client.AdminClient deploy.wsdd          --><!--      after the axis server is running                          --><!-- or                                                             --><!--   java org.apache.axis.utils.Admin client|server deploy.wsdd   --><!--      from the same directory that the Axis engine runs         --><deployment xmlns="http://xml.apache.org/axis/wsdd/" xmlns:java="http://xml.apache.org/axis/wsdd/providers/java">
+
+  <!-- Services from ExameImplWSService WSDL service -->
+
+  <service name="ExameImplWS" provider="java:RPC" style="wrapped" use="literal">
+      <parameter name="wsdlTargetNamespace" value="http://webService"/>
+      <parameter name="wsdlServiceElement" value="ExameImplWSService"/>
+      <parameter name="schemaQualified" value="http://webService,http://models"/>
+      <parameter name="wsdlServicePort" value="ExameImplWS"/>
+      <parameter name="className" value="webService.ExameImplWS"/>
+      <parameter name="wsdlPortType" value="ExameImplWS"/>
+      <parameter name="typeMappingVersion" value="1.2"/>
+      <operation xmlns:operNS="http://webService" xmlns:retNS="http://webService" xmlns:rtns="http://models" name="getObjExame" qname="operNS:getObjExame" returnQName="retNS:getObjExameReturn" returnType="rtns:Exame" soapAction="">
+        <parameter xmlns:pns="http://webService" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:id" type="tns:long"/>
+      </operation>
+      <parameter name="allowedMethods" value="getObjExame"/>
+
+      <typeMapping xmlns:ns="http://models" qname="ns:Exame" type="java:models.Exame" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle=""/>
+  </service>
+</deployment>

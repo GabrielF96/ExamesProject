@@ -10,6 +10,7 @@ import java.util.List;
 import connection.JdbcConnection;
 import models.Exame;
 import models.ExameDto;
+import models.PerfilExameDto;
 
 public class ExamesDAO {
 	
@@ -227,6 +228,66 @@ public class ExamesDAO {
 		}
 		
 		return exame;
+	}
+	
+	public PerfilExameDto getPerfilExame(long id) {
+		
+		PerfilExameDto perfilExame = null;
+		String sql = "select e.*, e.dt_Exame, paciente.nm_Paciente, medico.nm_medico from Exame e, (select p.id_paciente, p.nm_paciente from paciente p) as paciente, (select m.id_medico, m.nm_medico from medico m) as medico where e.id_paciente = paciente.id_paciente and e.id_medico = medico.id_medico and e.id_exame=?;";
+		
+		conexao = jdbcConnection.connect();
+		
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		
+		try {
+			ps = conexao.prepareStatement(sql);
+			ps.setLong(1, id);
+			
+			rs = ps.executeQuery();
+			
+			while(rs.next()) {
+				perfilExame = new PerfilExameDto();
+				perfilExame.setId_Exame(rs.getLong("e.id_Exame"));
+				perfilExame.setNm_Medico(rs.getString("medico.nm_Medico"));
+				perfilExame.setNm_Paciente(rs.getString("paciente.nm_Paciente"));
+				perfilExame.setDt_Exame(rs.getString("e.dt_Exame"));
+				perfilExame.setTp_Sanguineo(rs.getString("e.tp_Sanguineo"));
+				perfilExame.setReumatismo(rs.getBoolean("e.reumatismo"));
+				perfilExame.setDoenca_cardiaca(rs.getBoolean("e.doenca_cardiaca"));
+				perfilExame.setPressao_alta(rs.getBoolean("e.pressao_alta"));
+				perfilExame.setDiabetes(rs.getBoolean("e.diabetes"));
+				perfilExame.setDoenca_mental(rs.getBoolean("e.doenca_mental"));
+				perfilExame.setEpilepsia(rs.getBoolean("e.epilepsia"));
+				perfilExame.setHernia(rs.getBoolean("e.hernia"));
+				perfilExame.setCancer(rs.getString("e.cancer"));
+				perfilExame.setAlergias(rs.getString("e.alergias"));
+				perfilExame.setOutras_doencas(rs.getString("e.outras_doencas"));
+				perfilExame.setMedicamentos(rs.getString("e.medicamentos"));
+				perfilExame.setDoencas_familiares(rs.getString("e.doencas_familiares"));
+			}
+		} catch (SQLException e) {
+			System.out.println("Não foi possível fazer a consulta!");
+			e.printStackTrace();
+		}finally {
+			try {
+				rs.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			try {
+				ps.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			try {
+				conexao.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		return perfilExame;
 	}
 	
 	public void deleteExame(Long id) {

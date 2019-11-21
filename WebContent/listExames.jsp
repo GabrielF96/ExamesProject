@@ -85,6 +85,7 @@ header{
 				<th>Nome do Médico</th>
 				<th></th>
 				<th></th>
+				<th></th>
 			</tr>
 		</thead>
 		<tbody>
@@ -94,7 +95,8 @@ header{
 					<td><s:property value="dt_Exame"/></td>
 					<td><s:property value="nm_Paciente"/></td>
 					<td><s:property value="nm_Medico"/></td>
-					<td class="buttonSide"><s:url var="editarUrl" action="editarExame">
+					<td class="buttonSide">
+						<s:url var="editarUrl" action="editarExame">
 							<s:param name="id" value="id_Exame"></s:param>
 						</s:url>
 						<s:a href="%{editarUrl}" class="waves-effect waves-light btn"><i class="material-icons left"></i>EDITAR</s:a>
@@ -104,6 +106,12 @@ header{
 							<s:param name="id" value="id_Exame" />
 						</s:url>
 						<s:a href="%{removerUrl}" class="waves-effect waves-light btn"><i class="material-icons center">delete</i></s:a>
+					</td>
+					<td class="buttonSide">
+						<s:url var="consultarUrl" action="consultarExame">
+							<s:param name="id" value="id_Exame" />
+						</s:url>
+						<s:a href="%{consultarUrl}" class="waves-effect waves-light btn"><i class="material-icons center"></i>CONSULTAR</s:a>
 					</td>
 				</tr>
 			</s:iterator>
