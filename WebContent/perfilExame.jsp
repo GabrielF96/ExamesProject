@@ -134,7 +134,7 @@ fieldset.grupo .campoDiv {
 				</div>
 				<div class="campoDiv">
 					<label for="tp_Sanguineo">Tipo Sanguíneo:</label>
-					<input type="text" value='<s:property value="exame.tp_Sanguineo" />' style="height:20px; padding:4px; width:340px;" disabled/>
+					<input type="text" value='<s:property value="perfilExame.tp_Sanguineo" />' style="height:20px; padding:4px; width:340px;" disabled/>
 				</div>
 		</fieldset>
 			<h3 class="campo">Doenças que já teve ou tem</h3>

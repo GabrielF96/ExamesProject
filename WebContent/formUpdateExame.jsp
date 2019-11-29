@@ -123,13 +123,7 @@ fieldset.grupo .campoDiv {
 
 </style>
 <script>
-function valida_form (){
-	if(document.getElementById("dt_Exame")=="" || document.getElementById("dt_Exame")==null){
-		alert('Por favor, preencha o campo data');
-		document.getElementById("dt_Exame").focus();
-		return false;
-	}
-}
+
 </script>
 <title>Editar Exame</title>
 </head>
@@ -149,70 +143,70 @@ function valida_form (){
 	
 	<div class="container">
 		<form action="inserirExame" method="post">
-			<input type="hidden" name="id_Exame" value='<s:property value="exame.id" />' /><br>
+			<s:hidden name="exame.id" /><br>
 			
 			<fieldset class="grupo">
 				<div class="campoDiv">
-					<s:select name="id_Medico" list="listaMedicos" listKey="id_Medico" listValue="nm_Medico" 
-					headerKey="" headerValue="" label="Nome do Médico" style="height:35px; width:350px"/>
+					<s:select name="exame.id_Medico" list="listaMedicos" listKey="id_Medico" listValue="nm_Medico" 
+				 	label="Nome do Médico" style="height:35px; width:350px"/>
 				</div>
 				<div class="campoDiv">
-					<s:select name="id_Paciente" list="listaPacientes" listKey="id_Paciente" listValue="nm_Paciente" 
+					<s:select name="exame.id_Paciente" list="listaPacientes" listKey="id_Paciente" listValue="nm_Paciente" 
 					headerKey="" headerValue="" label="Nome do Paciente" style="height:35px; width:350px"/>
 				</div>
 			</fieldset>
 			<fieldset class="grupo">
 				<div class="campoDiv">
-					<label for="dt_Exame">Data do Exame:</label>		
-					<input type="date" name="dt_Exame" value='<s:property value="exame.dt_Exame" />' style="height:20px; padding:4px; width:340px;" required/>
+					<label for="exame.dt_Exame">Data do Exame:</label>		
+					<s:textfield name="exame.dt_Exame" style="height:20px; padding:4px; width:340px;"/>
 				</div>
 				<div class="campoDiv">
-					<label for="tp_Sanguineo">Tipo Sanguíneo:</label>
-					<input type="text" name="tp_Sanguineo" value='<s:property value="exame.tp_Sanguineo" />' placeholder="Ex.: (A+, A-, O+)" style="height:20px; padding:4px; width:340px;"/>
+					<label for="exame.tp_Sanguineo">Tipo Sanguíneo:</label>
+					<s:textfield name="exame.tp_Sanguineo" placeholder="Ex.: (A+, A-, O+)" style="height:20px; padding:4px; width:340px;"/>
 				</div>
 			</fieldset>
 					
 			<h3 class="campo">Doenças que já teve ou tem</h3>
 			<div class="putLeft">
-				<input class="campoCheck" type="checkbox" name="reumatismo" value="true" <s:if test="exame.reumatismo==true">checked</s:if> />
+				<s:checkbox class="campoCheck" name="exame.reumatismo"  />
 				<label for="reumatismo">Reumatismo</label><br>
 				
-				<input class="campoCheck" type="checkbox" name="doenca_cardiaca" value="true" <s:if test="exame.doenca_cardiaca==true">checked</s:if> />
+				<s:checkbox class="campoCheck" name="exame.doenca_cardiaca" />
 				<label for="doenca_cardiaca">Doença Cardíaca</label><br>
 				
-				<input class="campoCheck" type="checkbox" name="pressao_alta" value="true" <s:if test="exame.pressao_alta==true">checked</s:if> />
+				<s:checkbox class="campoCheck" name="exame.pressao_alta" />
 				<label for="pressao_alta">Pressão Alta</label><br>
 				
-				<input class="campoCheck" type="checkbox" name="diabetes" value="true" <s:if test="exame.diabetes==true">checked</s:if> />
+				<s:checkbox class="campoCheck" name="exame.diabetes" />
 				<label for="diabetes">Diabetes</label><br>
 				
-				<input class="campoCheck" type="checkbox" name="doenca_mental" value="true" <s:if test="exame.doenca_mental==true">checked</s:if> />
+				<s:checkbox class="campoCheck" name="exame.doenca_mental" />
 				<label for="pressao_alta">Doença Mental</label><br>
 				
-				<input class="campoCheck" type="checkbox" name="epilepsia" value="true" <s:if test="exame.epilepsia==true">checked</s:if> />
+				<s:checkbox class="campoCheck" name="exame.epilepsia" />
 				<label for="epilepsia">Epilepsia</label><br>
 				
-				<input class="campoCheck" type="checkbox" name="hernia" value="true" <s:if test="exame.hernia==true">checked</s:if> />
+				<s:checkbox class="campoCheck" name="exame.hernia" />
 				<label for="hernia">Hérnia</label><br>
 			</div>
 			
 			<div class="putRight">
 				<div class="campoDiv">
 					<label for="cancer">Câncer:</label>
-					<input class="campoText" type="text" name="cancer" value='<s:property value="exame.cancer" />' placeholder="Se sim, escreva o tipo do câncer" /><br>
+					<s:textfield class="campoText" name="exame.cancer" placeholder="Se sim, escreva o tipo do câncer" /><br>
 				</div>
 				<div class="campoDiv">	
 					<label for="alergias">Alergias:</label>
-					<input class="campoText" type="text" name="alergias" value='<s:property value="exame.alergias" />' placeholder="Se sim, alergia a que?" /><br>
+					<s:textfield class="campoText" name="exame.alergias" placeholder="Se sim, alergia a que?" /><br>
 				</div>
 				<div class="campoDiv">	
 					<label for="outras_doencas">Outras Doenças:</label>	
-					<input class="campoText" type="text" name="outras_doencas" value='<s:property value="exame.outras_doencas" />' 
+					<s:textfield class="campoText" name="exame.outras_doencas" 
 					placeholder="Escreva doenças não citadas, separando por vírgula" /><br>
 				</div>
 				<div class="campoDiv">
 					<label for="medicamentos">Medicamentos:</label>
-					<input class="campoText" type="text" name="medicamentos" value='<s:property value="exame.medicamentos" />' 
+					<s:textfield class="campoText" name="exame.medicamentos" 
 					placeholder="Quais medicamentos você toma?" /><br>
 				</div>
 			</div>
@@ -220,9 +214,8 @@ function valida_form (){
 			<div class="grupo">
 				<div class="campoDiv">
 					<label for="doencas_familiares" style="margin-bottom:11px"><h3>Quais doenças já aconteceram na sua família?</h3></label>
-					<textarea name="doencas_familiares" placeholder="Escreva as doenças separando por vírgulas" rows="5" cols="90" style="font-size:100%" ><s:property 
-					value="exame.doencas_familiares" />
-					</textarea>
+					<s:textarea name="exame.doencas_familiares" placeholder="Escreva as doenças separando por vírgulas" rows="5" cols="90" style="font-size:100%" >
+					</s:textarea>
 				</div>
 			</div>
 			

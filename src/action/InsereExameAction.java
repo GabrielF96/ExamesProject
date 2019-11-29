@@ -43,29 +43,10 @@ public class InsereExameAction extends ActionSupport{
 	
 	public String insereExame() {
 		HttpServletRequest request = ServletActionContext.getRequest();
-		exame = new Exame();
-		
-		exame.setId_Medico(Long.parseLong(request.getParameter("id_Medico")));
-		exame.setId_Paciente(Long.parseLong(request.getParameter("id_Paciente")));
-		exame.setDt_Exame(request.getParameter("dt_Exame"));
-		exame.setTp_Sanguineo(request.getParameter("tp_Sanguineo"));
-		exame.setReumatismo(Boolean.parseBoolean(request.getParameter("reumatismo")));
-		exame.setDoenca_cardiaca(Boolean.parseBoolean(request.getParameter("doenca_cardiaca")));
-		exame.setPressao_alta(Boolean.parseBoolean(request.getParameter("pressao_alta")));
-		exame.setDiabetes(Boolean.parseBoolean(request.getParameter("diabetes")));
-		exame.setDoenca_mental(Boolean.parseBoolean(request.getParameter("doenca_mental")));
-		exame.setEpilepsia(Boolean.parseBoolean(request.getParameter("epilepsia")));
-		exame.setHernia(Boolean.parseBoolean(request.getParameter("hernia")));
-		exame.setCancer(request.getParameter("cancer"));
-		exame.setAlergias(request.getParameter("alergias"));
-		exame.setOutras_doencas(request.getParameter("outras_doencas"));
-		exame.setMedicamentos(request.getParameter("medicamentos"));
-		exame.setDoencas_familiares(request.getParameter("doencas_familiares"));
 		
 		if(request.getParameter("btnCadastrar").equalsIgnoreCase("Cadastrar")) {
 			examesDAO.save(exame);
 		} else if(request.getParameter("btnCadastrar").equalsIgnoreCase("Editar")){
-			exame.setId(Long.parseLong(request.getParameter("id_Exame")));
 			examesDAO.updateExame(exame);
 		}
 		
